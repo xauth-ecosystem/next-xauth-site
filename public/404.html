@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting...</title>
+  <script type="text/javascript">
+    // Single Page Apps for GitHub Pages
+    // MIT License
+    // https://github.com/rafgraph/spa-github-pages
+    // This script redirects all 404 errors to index.html with the correct path.
+    // This ensures that refreshing deep links in SPAs works correctly.
+
+    var path = window.location.pathname;
+    var query = window.location.search;
+    var fragment = window.location.hash;
+
+    // If the path is not already '/index.html' or doesn't end with a file extension,
+    // redirect to index.html, preserving the original path and query.
+    // This prevents redirect loops if index.html itself returns a 404 (e.g., if there's a typo in the path).
+    if (
+      path !== '/index.html' &&
+      !path.includes('.') && // Check for file extension (e.g., .css, .js, .png)
+      !path.endsWith('/') // Check if it's a directory (might be a valid route)
+    ) {
+      window.location.replace('/index.html' + query + fragment);
+    } else if (
+        path.endsWith('/') && // If it's a directory-like path
+        path !== '/' // And not the root
+    ) {
+        // For paths like /about/, redirect to /index.html#/about
+        window.location.replace('/index.html#' + path + query + fragment);
+    }
+  </script>
+</head>
+<body>
+  Redirecting to the main page...
+</body>
+</html>
