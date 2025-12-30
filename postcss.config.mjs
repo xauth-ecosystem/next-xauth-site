@@ -1,8 +1,8 @@
 const config = {
   plugins: {
-    tailwindcss: {}, // For Tailwind CSS v3
+    tailwindcss: {}, // Use 'tailwindcss' directly for v3
     autoprefixer: {},
   },
 };
-
 export default config;
+

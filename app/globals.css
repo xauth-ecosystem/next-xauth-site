@@ -1,14 +1,14 @@
 /* Merged from old Vue project's base.css and main.css */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 /* Font import */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
 
 /* Font Awesome import */
 @import '@fortawesome/fontawesome-free/css/all.min.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
