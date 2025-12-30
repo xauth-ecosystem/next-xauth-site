@@ -34,7 +34,7 @@ export default function WikiSidebar({ wikiStructure, loading }: WikiSidebarProps
                             <h5 className="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-8">{section.title}</h5>
                             <ul className="space-y-6 border-l border-slate-800 ml-1">
                                 {section.items.map((item, itemIndex) => (
-                                    <li key={itemIndex} className={`pl-6 ${currentSlug === item.slug ? 'border-l-2 border-blue-600 -ml-px text-white font-black' : 'text-slate-500 hover:text-white transition cursor-pointer font-bold uppercase text-xs tracking-widest'}`}>
+                                    <li key={itemIndex} className={`pl-6 ${currentSlug === item.slug ? 'border-l-2 border-blue-600 -ml-px text-white font-bold' : 'text-slate-500 hover:text-white transition cursor-pointer uppercase text-xs tracking-widest'}`}>
                                         <Link href={`/wiki/${item.slug}`} className="block">
                                             {item.label}
                                         </Link>
