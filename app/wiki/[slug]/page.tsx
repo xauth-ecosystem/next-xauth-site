@@ -8,10 +8,54 @@ interface WikiArticlePageProps {
   params: { slug: string };
 }
 
+// Define the base URL for your documentation repository's raw content
+const DOCS_REPO_RAW_BASE_URL = 'https://raw.githubusercontent.com/xauth-ecosystem/xauth-docs/main';
+
+interface WikiItem {
+  slug: string;
+  label: string;
+}
+
+interface WikiSection {
+  title: string;
+  slug?: string;
+  items: WikiItem[];
+}
+
+async function getWikiStructure(): Promise<WikiSection[]> {
+  try {
+    const response = await fetch(`${DOCS_REPO_RAW_BASE_URL}/_wiki_structure.json`, {
+      cache: 'no-store', // Ensure data is fetched on every build
+    });
+
+    if (!response.ok) {
+      console.error(`Failed to fetch wiki structure: ${response.statusText}`);
+      return [];
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('Error fetching wiki structure:', error);
+    return [];
+  }
+}
+
+// Implement generateStaticParams to tell Next.js which pages to pre-render
+export async function generateStaticParams() {
+  const wikiStructure = await getWikiStructure();
+  const slugs: { slug: string }[] = [];
+
+  wikiStructure.forEach(section => {
+    section.items.forEach(item => {
+      slugs.push({ slug: item.slug });
+    });
+  });
+
+  return slugs;
+}
+
 // Data fetching at build time for SSG
 async function getMarkdownContent(slug: string) {
-  const DOCS_REPO_RAW_BASE_URL = 'https://raw.githubusercontent.com/xauth-ecosystem/xauth-docs/main';
-  
   // Ensure slug is properly encoded for the URL
   const encodedSlug = encodeURIComponent(slug);
 
@@ -59,22 +103,11 @@ export default async function WikiArticlePage({ params }: WikiArticlePageProps) 
       <Head>
         <title>{title ? `${title} | Wiki` : 'Wiki'} | XAuth Ecosystem</title>
       </Head>
-      <div className="wiki-article py-20 px-4 max-w-4xl mx-auto">
-        <div className="pt-32">
-          <h1 className="text-4xl font-bold text-white mb-6">{title}</h1>
-          <div className="prose prose-invert max_w-none" dangerouslySetInnerHTML={{ __html: renderedMarkdown }}></div>
-        </div>
+      {/* Article content will be rendered inside the layout's main section */}
+      <div className="prose prose-invert max_w-none">
+        <div dangerouslySetInnerHTML={{ __html: renderedMarkdown }}></div>
       </div>
     </>
   );
-}
-
-// Implement generateStaticParams to tell Next.js which pages to pre-render
-export async function generateStaticParams() {
-  const slugs = ['introduction', 'getting-started', 'faq']; // Hardcoded example slugs
-
-  return slugs.map((slug) => ({
-    slug: slug,
-  }));
 }
 
