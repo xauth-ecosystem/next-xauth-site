@@ -5,10 +5,10 @@
                 <i class="fa-solid fa-shield-halved text-blue-500"></i> XAUTH
             </RouterLink>
             <div class="hidden md:flex items-center gap-10 text-[14px] font-bold uppercase tracking-widest">
-                <RouterLink to="/" class="">Overview</RouterLink>
-                <RouterLink to="/wiki" class="hover:text-white transition">Wiki</RouterLink>
-                <RouterLink to="/download" class="hover:text-white transition">Downloads</RouterLink>
-                <RouterLink to="/support" class="hover:text-white transition">Support</RouterLink>
+                <RouterLink to="/" :class="{ 'text-blue-500': route.path === '/' }">Overview</RouterLink>
+                <RouterLink to="/wiki" class="transition" :class="{ 'text-blue-500': route.path === '/wiki', 'hover:text-white': route.path !== '/wiki' }">Wiki</RouterLink>
+                <RouterLink to="/download" class="transition" :class="{ 'text-blue-500': route.path === '/download', 'hover:text-white': route.path !== '/download' }">Downloads</RouterLink>
+                <RouterLink to="/support" class="transition" :class="{ 'text-blue-500': route.path === '/support', 'hover:text-white': route.path !== '/support' }">Support</RouterLink>
                 <a href="https://github.com/xauth-ecosystem" class="text-slate-500 hover:text-white transition">
                     <i class="fa-brands fa-github text-xl"></i>
                 </a>
@@ -19,10 +19,10 @@
         </div>
         <div id="mobile-menu" :class="{ 'hidden': !isMobileMenuOpen }" class="md:hidden bg-[#020617] border-t border-slate-800">
             <div class="px-6 py-4 space-y-4">
-                <RouterLink to="/" class="block font-bold uppercase tracking-widest">Overview</RouterLink>
-                <RouterLink to="/wiki" class="block hover:text-white transition font-bold uppercase tracking-widest">Wiki</RouterLink>
-                <RouterLink to="/download" class="block hover:text-white transition font-bold uppercase tracking-widest">Downloads</RouterLink>
-                <RouterLink to="/support" class="block hover:text-white transition font-bold uppercase tracking-widest">Support</RouterLink>
+                <RouterLink to="/" class="block font-bold uppercase tracking-widest" :class="{ 'text-blue-500': route.path === '/' }">Overview</RouterLink>
+                <RouterLink to="/wiki" class="block transition font-bold uppercase tracking-widest" :class="{ 'text-blue-500': route.path === '/wiki', 'hover:text-white': route.path !== '/wiki' }">Wiki</RouterLink>
+                <RouterLink to="/download" class="block transition font-bold uppercase tracking-widest" :class="{ 'text-blue-500': route.path === '/download', 'hover:text-white': route.path !== '/download' }">Downloads</RouterLink>
+                <RouterLink to="/support" class="block transition font-bold uppercase tracking-widest" :class="{ 'text-blue-500': route.path === '/support', 'hover:text-white': route.path !== '/support' }">Support</RouterLink>
             </div>
         </div>
     </nav>
@@ -30,9 +30,10 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRoute } from 'vue-router';
 
 const isMobileMenuOpen = ref(false);
+const route = useRoute();
 
 const toggleMobileMenu = () => {
     isMobileMenuOpen.value = !isMobileMenuOpen.value;
