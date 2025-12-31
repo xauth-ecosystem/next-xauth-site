@@ -5,6 +5,7 @@ import WikiSidebar from "@/components/WikiSidebar"; // Import the new client com
 interface WikiItem {
   slug: string;
   label: string;
+  default?: boolean;
 }
 
 interface WikiSection {
