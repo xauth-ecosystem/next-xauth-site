@@ -59,7 +59,7 @@ async function getMarkdownContent(slug: string) {
   // Ensure slug is properly encoded for the URL
   const encodedSlug = encodeURIComponent(slug);
 
-  const response = await fetch(`${DOCS_REPO_RAW_BASE_URL}/${encodedSlug}.md`);
+  const response = await fetch(`${DOCS_REPO_RAW_BASE_URL}/articles/${encodedSlug}.md`);
 
   if (!response.ok) {
     // If article is not found (404), trigger the not-found page
@@ -81,9 +81,6 @@ export default async function WikiArticlePage({ params }: WikiArticlePageProps) 
   try {
     markdownText = await getMarkdownContent(slug);
   } catch (error) {
-    // If getMarkdownContent throws an error (other than 404 which calls notFound()),
-    // it means a critical error occurred, so we can also trigger notFound().
-    // Or, display a generic error. For now, let's trigger notFound() as well.
     notFound(); 
   }
 
@@ -104,7 +101,7 @@ export default async function WikiArticlePage({ params }: WikiArticlePageProps) 
         <title>{title ? `${title} | Wiki` : 'Wiki'} | XAuth Ecosystem</title>
       </Head>
       {/* Article content will be rendered inside the layout's main section */}
-      <div className="prose prose-invert max_w-none">
+      <div className="prose prose-invert max-w-none">
         <div dangerouslySetInnerHTML={{ __html: renderedMarkdown }}></div>
       </div>
     </>
