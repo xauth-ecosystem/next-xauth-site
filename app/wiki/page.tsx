@@ -54,7 +54,7 @@ export default async function WikiPage() {
   }
 
   if (targetSlug) {
-    redirect(`/wiki/${targetSlug}`);
+    redirect(`/wiki/view?slug=${targetSlug}`);
   }
 
   return (
