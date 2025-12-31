@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 interface WikiItem {
   slug: string;
   label: string;
+  default?: boolean;
 }
 
 interface WikiSection {
